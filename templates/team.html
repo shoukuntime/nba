@@ -1,0 +1,190 @@
+<section class="hero is-info is-fullheight">
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="box content" style="margin: auto 20%;">
+        <div class="title">隊伍資訊分析</div>
+        <div class="box columns">
+            <div class="column">
+                <div class="field">
+                    <label class="label">賽季</label>
+                    <div class="select">
+                        <select id="season" name="season">
+                            <option value="" disabled {% if not season %}selected{% endif %}>請選取賽季期間</option>
+                            <option value="14" {% if season=='2014-15 ' %}selected{% endif %}>2014-2015</option>
+                            <option value="15" {% if season=='2015-16 ' %}selected{% endif %}>2015-2016</option>
+                            <option value="16" {% if season=='2016-17 ' %}selected{% endif %}>2016-2017</option>
+                            <option value="17" {% if season=='2017-18 ' %}selected{% endif %}>2017-2018</option>
+                            <option value="18" {% if season=='2018-19 ' %}selected{% endif %}>2018-2019</option>
+                            <option value="19" {% if season=='2019-20 ' %}selected{% endif %}>2019-2020</option>
+                            <option value="20" {% if season=='2020-21 ' %}selected{% endif %}>2020-2021</option>
+                            <option value="21" {% if season=='2021-22 ' %}selected{% endif %}>2021-2022</option>
+                            <option value="22" {% if season=='2022-23 ' %}selected{% endif %}>2022-2023</option>
+                            <option value="23" {% if season=='2023-24 ' %}selected{% endif %}>2023-2024</option>
+                            <option value="24" {% if season=='2024-25 ' %}selected{% endif %}>2024-2025</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="field">
+                    <label class="label">隊伍1</label>
+                    <div class="select">
+                        <select id="team1" name="team1">
+                            <option value="" disabled {% if not team1 %}selected{% endif %}>請選取隊伍名稱</option>
+                            <option value="Boston Celtics" {% if team1=='Boston Celtics1' %}selected{% endif %}>塞爾蒂克
+                            </option>
+                            <option value="Brooklyn Nets" {% if team1=='Brooklyn Nets' %}selected{% endif %}>籃網</option>
+                            <option value="New York Knicks" {% if team1=='New York Knicks' %}selected{% endif %}>尼克
+                            </option>
+                            <option value="Philadelphia 76ers" {% if team1=='Philadelphia 76ers' %}selected{% endif %}>
+                                76人</option>
+                            <option value="Toronto Raptors" {% if team1=='Toronto Raptors' %}selected{% endif %}>暴龍
+                            </option>
+                            <option value="Chicago Bulls" {% if team1=='Chicago Bulls' %}selected{% endif %}>公牛</option>
+                            <option value="Cleveland Cavaliers" {% if team1=='Cleveland Cavaliers' %}selected{% endif
+                                %}>騎士</option>
+                            <option value="Detroit Pistons" {% if team1=='Detroit Pistons' %}selected{% endif %}>活塞
+                            </option>
+                            <option value="Indiana Pacers" {% if team1=='Indiana Pacers' %}selected{% endif %}>溜馬
+                            </option>
+                            <option value="Milwaukee Bucks" {% if team1=='Milwaukee Bucks' %}selected{% endif %}>公鹿
+                            </option>
+                            <option value="Atlanta Hawks" {% if team1=='Atlanta Hawks' %}selected{% endif %}>老鷹</option>
+                            <option value="Charlotte Hornets" {% if team1=='Charlotte Hornets' %}selected{% endif %}>黃蜂
+                            </option>
+                            <option value="Miami Heat" {% if team1=='Miami Heat' %}selected{% endif %}>熱火</option>
+                            <option value="Orlando Magic" {% if team1=='Orlando Magic' %}selected{% endif %}>魔術</option>
+                            <option value="Washington Wizards" {% if team1=='Washington Wizards' %}selected{% endif %}>
+                                巫師</option>
+                            <option value="Denver Nuggets" {% if team1=='Denver Nuggets' %}selected{% endif %}>金塊
+                            </option>
+                            <option value="Minnesota Timberwolves" {% if team1=='Minnesota Timberwolves' %}selected{%
+                                endif %}>灰狼</option>
+                            <option value="Oklahoma City Thunder" {% if team1=='Oklahoma City Thunder' %}selected{%
+                                endif %}>雷霆</option>
+                            <option value="Portland Trail Blazers" {% if team1=='Portland Trail Blazers' %}selected{%
+                                endif %}>拓荒者</option>
+                            <option value="Utah Jazz" {% if team1=='Utah Jazz' %}selected{% endif %}>爵士</option>
+                            <option value="Golden State Warriors" {% if team1=='Golden State Warriors' %}selected{%
+                                endif %}>勇士</option>
+                            <option value="LA Clippers" {% if team1=='LA Clippers' %}selected{% endif %}>快艇</option>
+                            <option value="Los Angeles Lakers" {% if team1=='Los Angeles Lakers' %}selected{% endif %}>
+                                湖人</option>
+                            <option value="Phoenix Suns" {% if team1=='Phoenix Suns' %}selected{% endif %}>太陽</option>
+                            <option value="Sacramento Kings" {% if team1=='Sacramento Kings' %}selected{% endif %}>國王
+                            </option>
+                            <option value="Dallas Mavericks" {% if team1=='Dallas Mavericks' %}selected{% endif %}>獨行俠
+                            </option>
+                            <option value="Houston Rockets" {% if team1=='Houston Rockets' %}selected{% endif %}>火箭
+                            </option>
+                            <option value="Memphis Grizzlies" {% if team1=='Memphis Grizzlies' %}selected{% endif %}>灰熊
+                            </option>
+                            <option value="New Orleans Pelicans" {% if team1=='New Orleans Pelicans' %}selected{% endif
+                                %}>鵜鶘</option>
+                            <option value="San Antonio Spurs" {% if team1=='San Antonio Spurs' %}selected{% endif %}>馬刺
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">隊伍2</label>
+                    <div class="select">
+                        <select id="team2" name="team2">
+                            <option value="" disabled {% if not team2 %}selected{% endif %}>請選取隊伍名稱</option>
+                            <option value="Boston Celtics" {% if team2=='Boston Celtics' %}selected{% endif %}>塞爾蒂克
+                            </option>
+                            <option value="Brooklyn Nets" {% if team2=='Brooklyn Nets' %}selected{% endif %}>籃網</option>
+                            <option value="New York Knicks" {% if team2=='New York Knicks' %}selected{% endif %}>尼克
+                            </option>
+                            <option value="Philadelphia 76ers" {% if team2=='Philadelphia 76ers' %}selected{% endif %}>
+                                76人</option>
+                            <option value="Toronto Raptors" {% if team2=='Toronto Raptors' %}selected{% endif %}>暴龍
+                            </option>
+                            <option value="Chicago Bulls" {% if team2=='Chicago Bulls' %}selected{% endif %}>公牛</option>
+                            <option value="Cleveland Cavaliers" {% if team2=='Cleveland Cavaliers' %}selected{% endif
+                                %}>騎士</option>
+                            <option value="Detroit Pistons" {% if team2=='Detroit Pistons' %}selected{% endif %}>活塞
+                            </option>
+                            <option value="Indiana Pacers" {% if team2=='Indiana Pacers' %}selected{% endif %}>溜馬
+                            </option>
+                            <option value="Milwaukee Bucks" {% if team2=='Milwaukee Bucks' %}selected{% endif %}>公鹿
+                            </option>
+                            <option value="Atlanta Hawks" {% if team2=='Atlanta Hawks' %}selected{% endif %}>老鷹</option>
+                            <option value="Charlotte Hornets" {% if team2=='Charlotte Hornets' %}selected{% endif %}>黃蜂
+                            </option>
+                            <option value="Miami Heat" {% if team2=='Miami Heat' %}selected{% endif %}>熱火</option>
+                            <option value="Orlando Magic" {% if team2=='Orlando Magic' %}selected{% endif %}>魔術</option>
+                            <option value="Washington Wizards" {% if team2=='Washington Wizards' %}selected{% endif %}>
+                                巫師</option>
+                            <option value="Denver Nuggets" {% if team2=='Denver Nuggets' %}selected{% endif %}>金塊
+                            </option>
+                            <option value="Minnesota Timberwolves" {% if team2=='Minnesota Timberwolves' %}selected{%
+                                endif %}>灰狼</option>
+                            <option value="Oklahoma City Thunder" {% if team2=='Oklahoma City Thunder' %}selected{%
+                                endif %}>雷霆</option>
+                            <option value="Portland Trail Blazers" {% if team2=='Portland Trail Blazers' %}selected{%
+                                endif %}>拓荒者</option>
+                            <option value="Utah Jazz" {% if team2=='Utah Jazz' %}selected{% endif %}>爵士</option>
+                            <option value="Golden State Warriors" {% if team2=='Golden State Warriors' %}selected{%
+                                endif %}>勇士</option>
+                            <option value="LA Clippers" {% if team2=='LA Clippers' %}selected{% endif %}>快艇</option>
+                            <option value="Los Angeles Lakers" {% if team2=='Los Angeles Lakers' %}selected{% endif %}>
+                                湖人</option>
+                            <option value="Phoenix Suns" {% if team2=='Phoenix Suns' %}selected{% endif %}>太陽</option>
+                            <option value="Sacramento Kings" {% if team2=='Sacramento Kings' %}selected{% endif %}>國王
+                            </option>
+                            <option value="Dallas Mavericks" {% if team2=='Dallas Mavericks' %}selected{% endif %}>獨行俠
+                            </option>
+                            <option value="Houston Rockets" {% if team2=='Houston Rockets' %}selected{% endif %}>火箭
+                            </option>
+                            <option value="Memphis Grizzlies" {% if team2=='Memphis Grizzlies' %}selected{% endif %}>灰熊
+                            </option>
+                            <option value="New Orleans Pelicans" {% if team2=='New Orleans Pelicans' %}selected{% endif
+                                %}>鵜鶘</option>
+                            <option value="San Antonio Spurs" {% if team2=='San Antonio Spurs' %}selected{% endif %}>馬刺
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <button class="button is-primary"
+                        onclick="location.href='/team/season='+document.getElementById('season').value+'/team1='+document.getElementById('team1').value+'/team2='+document.getElementById('team2').value">查詢</button>
+                </div>
+
+            </div>
+            <div class="column is-8">
+                {% if values1 %}
+                <div class="subtitle" style="text-align: center;">{{message}}</div>
+                <div id="main" style="width: 450px; height: 400px; margin: 0 auto;"></div>
+                <script type="text/javascript">
+                    // 基于准备好的dom，初始化echarts实例
+                    var myChart = echarts.init(document.getElementById('main'));
+                    var team1 = '{{ team1_zh }}';
+                    var team2 = '{{ team2_zh }}';
+                    var team1_values = {{ values1 }};
+                    var team2_values = {{ values2 }};
+                    // 指定图表的配置项和数据
+                    var option = {
+                        legend: { data: [team1, team2] },
+                        radar: {
+                            indicator: [{ name: '得分', max: 5.5 },
+                            { name: '3分', max: 5.5 },
+                            { name: '2分', max: 5.5 },
+                            { name: '罰球', max: 5.5 },
+                            { name: '籃板', max: 5.5 },
+                            { name: '其他', max: 5.5 }]
+                        },
+                        series: [{
+                            type: 'radar',
+                            data: [{ value: team1_values, name: team1 },
+                            { value: team2_values, name: team2 }]
+                        }]
+                    };
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                </script>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</section>

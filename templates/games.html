@@ -1,0 +1,299 @@
+<section class="hero is-info is-fullheight">
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="box content" style="margin: auto 15%;">
+        {% if date %}
+        <div class="title">{{ date }}賽事</div>
+        {% else %}
+        <div class="title">今日賽事</div>
+        <div class="field">
+            <a class="button is-danger is-outlined" href="/games/getmore=True">今日先發資訊(需載入數分鐘)</a>
+        </div>
+        {% endif %}
+        <div class="field">
+            <a class="button is-link is-outlined" href="/games/date={{ date_1 }}" title="前一天">◁</a>
+            <a class="button is-link is-outlined" href="/games/getmore=False" title="今日賽事">🏠︎</a>
+            <a class="button is-link is-outlined" href="/games/date={{ date1 }}" title="後一天">▷</a>
+            <a class="button is-link is-outlined" href="" title="重新整理">↻</a>
+        </div>
+        <div class="field">
+            <input class='input is-primary' type="date" id="date" name="date" title="請選取賽事日期">
+        </div>
+        <div class="field"><button class="button is-primary"
+                onclick="location.href='/games/date='+document.getElementById('date').value">查詢</button></div>
+        {% if in_pros!=[] %}
+        <div class="subtitle">進行中</div>
+        {% for in_pro in in_pros %}
+        {{ in_pro[0] }}
+        <div class="box" style="text-align: center;">
+            <div class="columns">
+
+                <div class="column">
+                    <img src="{{ in_pro[1] }}" alt="image"><br>
+                    {{ in_pro[2] }}<br>
+                    <strong><a href="/player/season={{year}}/team={{ in_pro[3] }}/getinfo=False">{{ in_pro[3]
+                            }}</a></strong>
+                    <div style="font-size: 30px;"><strong>{{ in_pro[4] }}</strong></div>
+                    {% if getmore %}
+                    {% for i in in_pro[-3][:5] %}
+                    <div style="text-align: left;">🏅<a href="/player/name={{i}}/getinfo=False">{{i}}</a><br></div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="column">
+                    <div class="box blue">預測分數(團隊)<br>
+                        <div style="font-size: 20px;"><strong>{{ in_pro[9].0|int}}<span class="has-text-danger">
+                                    ({{in_pro[9].0|int - in_pro[4]|int}})</span></strong>
+                        </div>
+                    </div>
+                    {% if getmore %}
+                    <div class="box red">預測分數(先發)<br>
+                        <div style="font-size: 20px;"><strong>{{ in_pro[-2].0|int}}<span class="has-text-danger">
+                                    ({{in_pro[-2].0|int - in_pro[4]|int}})</span></strong>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="column">
+                    <img src="{{ in_pro[5] }}" alt="image"><br>
+                    {{ in_pro[6] }}<br>
+                    <strong><a href="/player/season={{year}}/team={{ in_pro[7] }}/getinfo=False">{{ in_pro[7]
+                            }}</a></strong>
+                    <div style="font-size: 30px;"><strong>{{ in_pro[8] }}</strong></div>
+                    {% if getmore %}
+                    {% for i in in_pro[-3][5:] %}
+                    <div style="text-align: left;">🏅<a href="/player/name={{i}}/getinfo=False">{{i}}</a><br></div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="column">
+                    <div class="box blue">預測分數(團隊)<br>
+                        <div style="font-size: 20px;"><strong>{{ in_pro[10].0|int}}<span class="has-text-danger">
+                                    ({{in_pro[10].0|int - in_pro[8]|int}})</span></strong>
+                        </div>
+                    </div>
+                    {% if getmore %}
+                    <div class="box red">預測分數(先發)<br>
+                        <div style="font-size: 20px;"><strong>{{ in_pro[-1].0|int}}<span class="has-text-danger">
+                                    ({{in_pro[-1].0|int - in_pro[8]|int}})</span></strong>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="column">
+                    <div id="main{{ loop.index }}-1" style="width: 250px;height:300px;"></div>
+                    <script type="text/javascript">
+                        // 基于准备好的dom，初始化echarts实例
+                        var myChart = echarts.init(document.getElementById('main{{ loop.index }}-1'));
+                        var team1 = '{{ in_pro[3] }}';
+                        var team2 = '{{ in_pro[7] }}';
+                        var team1_values = {{ in_pro[11] }};
+                        var team2_values = {{ in_pro[12] }};
+                        // 指定图表的配置项和数据
+                        var option = {
+                            legend: { data: [team1, team2] },
+                            radar: {
+                                indicator: [{ name: '得分', max: 5.5 },
+                                { name: '3分', max: 5.5 },
+                                { name: '2分', max: 5.5 },
+                                { name: '罰球', max: 5.5 },
+                                { name: '籃板', max: 5.5 },
+                                { name: '其他', max: 5.5 }]
+                            },
+                            series: [{
+                                type: 'radar',
+                                data: [{ value: team1_values, name: team1 },
+                                { value: team2_values, name: team2 }]
+                            }]
+                        };
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                    </script>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% if ends!=[] %}
+        <div class="subtitle">已結束</div>
+        {% for end in ends %}
+        <div class="box" style="text-align: center;">
+            <div class="columns">
+
+
+                <div class="column">
+                    <img src="{{ end[0] }}" alt="image"><br>
+                    {{ end[1] }}<br>
+                    <strong><a href="/player/season={{year}}/team={{ end[2] }}/getinfo=False">{{ end[2]
+                            }}</strong></a>
+                    <div style="font-size: 30px;"><strong>{{ end[3]
+                            }}</strong></div>
+                    {% for i in end[-3][:5] %}
+                    <div style="text-align: left;">🏅<a href="/player/name={{i}}/getinfo=False">{{i}}</a><br></div>
+                    {% endfor %}
+                </div>
+                <div class="column">
+                    <div class="box blue">預測分數(團隊)<br>
+                        <div style="font-size: 20px;"><strong>{{ end[8].0|int}}<span class="has-text-danger">
+                                    ({{end[8].0|int - end[3]|int}})</span></strong>
+                        </div>
+                    </div>
+                    <div class="box red">預測分數(先發)<br>
+                        <div style="font-size: 20px;"><strong>{{ end[-2].0|int}}<span class="has-text-danger">
+                                    ({{end[-2].0|int - end[3]|int}})</span></strong>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="column">
+                    <img src="{{ end[4] }}" alt="image"><br>
+                    {{ end[5] }}<br>
+                    <strong><a href="/player/season={{year}}/team={{ end[6] }}/getinfo=False">{{ end[6]
+                            }}</a></strong>
+                    <div style="font-size: 30px;"><strong>{{ end[7] }}</strong></div>
+                    {% for i in end[-3][5:] %}
+                    <div style="text-align: left;">🏅<a href="/player/name={{i}}/getinfo=False">{{i}}</a><br></div>
+                    {% endfor %}
+                </div>
+                <div class="column">
+                    <div class="box blue">預測分數(團隊)<br>
+                        <div style="font-size: 20px;"><strong>{{ end[9].0|int}}<span class="has-text-danger">
+                                    ({{end[9].0|int - end[7]|int}})</span></strong>
+                        </div>
+                    </div>
+                    <div class="box red">預測分數(先發)<br>
+                        <div style="font-size: 20px;"><strong>{{ end[-1].0|int}}<span class="has-text-danger">
+                                    ({{end[-1].0|int - end[7]|int}})</span></strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div id="main{{ loop.index }}-2" style="width: 250px;height:300px;"></div>
+                    <script type="text/javascript">
+                        // 基于准备好的dom，初始化echarts实例
+                        var myChart = echarts.init(document.getElementById('main{{ loop.index }}-2'));
+                        var team1 = '{{ end[2] }}';
+                        var team2 = '{{ end[6] }}';
+                        var team1_values = {{ end[10] }};
+                        var team2_values = {{ end[11] }};
+                        // 指定图表的配置项和数据
+                        var option = {
+                            legend: { data: [team1, team2] },
+                            radar: {
+                                indicator: [{ name: '得分', max: 5.5 },
+                                { name: '3分', max: 5.5 },
+                                { name: '2分', max: 5.5 },
+                                { name: '罰球', max: 5.5 },
+                                { name: '籃板', max: 5.5 },
+                                { name: '其他', max: 5.5 }]
+                            },
+                            series: [{
+                                type: 'radar',
+                                data: [{ value: team1_values, name: team1 },
+                                { value: team2_values, name: team2 }]
+                            }]
+                        };
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                    </script>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        {% if pres!=[] %}
+        <div class="subtitle">即將開始</div>
+        {% for pre in pres %}
+        <div class="box" style="text-align: center;">
+            <div class="columns">
+
+                <div class="column">
+                    <img src="{{ pre[0] }}" alt="image"><br>
+                    {{ pre[1] }}<br>
+                    <strong><a href="/player/season={{year}}/team={{ pre[2] }}/getinfo=False">{{ pre[2]
+                            }}</a></strong>
+                    <div style="font-size: 30px;"><strong>{{ pre[3] }}</strong></div>
+                    {% for i in pre[-3][:5] %}
+                    <div style="text-align: left;">🏅<a href="/player/name={{i}}/getinfo=False">{{i}}</a><br></div>
+                    {% endfor %}
+                </div>
+                <div class="column">
+                    <div class="box blue">預測分數(團隊)<br>
+                        <div style="font-size: 20px;"><strong>{{ pre[8].0|int}}<span class="has-text-danger">
+                                    ({{pre[8].0|int - pre[3]|int}})</span></strong>
+                        </div>
+                    </div>
+                    <div class="box red">預測分數(先發)<br>
+                        <div style="font-size: 20px;"><strong>{{ pre[-2].0|int}}<span class="has-text-danger">
+                                    ({{pre[-2].0|int - pre[3]|int}})</span></strong>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="column">
+                    <img src="{{ pre[4] }}" alt="image"><br>
+                    {{ pre[5] }}<br>
+                    <strong><a href="/player/season={{year}}/team={{ pre[6] }}/getinfo=False">{{ pre[6]
+                            }}</a></strong>
+                    <div style="font-size: 30px;"><strong>{{ pre[7] }}</strong></div>
+                    {% for i in pre[-3][5:] %}
+                    <div style="text-align: left;">🏅<a href="/player/name={{i}}/getinfo=False">{{i}}</a><br></div>
+                    {% endfor %}
+                </div>
+                <div class="column">
+                    <div class="box blue">預測分數(團隊)<br>
+                        <div style="font-size: 20px;"><strong>{{ pre[9].0|int}}<span class="has-text-danger">
+                                    ({{pre[9].0|int - pre[7]|int}})</span></strong>
+                        </div>
+                    </div>
+                    <div class="box red">預測分數(先發)<br>
+                        <div style="font-size: 20px;"><strong>{{ pre[-1].0|int}}<span class="has-text-danger">
+                                    ({{pre[-1].0|int - pre[7]|int}})</span></strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div id="main{{ loop.index }}-3" style="width: 250px;height:300px;"></div>
+                    <script type="text/javascript">
+                        // 基于准备好的dom，初始化echarts实例
+                        var myChart = echarts.init(document.getElementById('main{{ loop.index }}-3'));
+                        var team1 = '{{ pre[2] }}';
+                        var team2 = '{{ pre[6] }}';
+                        var team1_values = {{ pre[10] }};
+                        var team2_values = {{ pre[11] }};
+                        // 指定图表的配置项和数据
+                        var option = {
+                            legend: { data: [team1, team2] },
+                            radar: {
+                                indicator: [{ name: '得分', max: 5.5 },
+                                { name: '3分', max: 5.5 },
+                                { name: '2分', max: 5.5 },
+                                { name: '罰球', max: 5.5 },
+                                { name: '籃板', max: 5.5 },
+                                { name: '其他', max: 5.5 }]
+                            },
+                            series: [{
+                                type: 'radar',
+                                data: [{ value: team1_values, name: team1 },
+                                { value: team2_values, name: team2 }]
+                            }]
+                        };
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                    </script>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    {% endblock %}
+</section>

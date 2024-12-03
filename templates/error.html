@@ -1,0 +1,16 @@
+<section class="hero is-info is-fullheight">
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="box content" style="margin: auto 20%;">
+        <div class="title">錯誤</div>
+        <div class="message">
+            <div class="field">
+                如果你看到這個畫面，代表你操作錯誤或網頁輸入錯誤，請重新操作或按回上一頁!
+            </div>
+            <div class="field">
+                <a class="button is-link is-outlined" href="javascript:history.back()">返回上一頁</a>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</section>

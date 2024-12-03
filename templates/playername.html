@@ -1,0 +1,36 @@
+<section class="hero is-info is-fullheight">
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="box content" style="margin: auto 20%;">
+        <div class="title">{{message}}</div>
+        <div style="overflow-x: auto;">
+            <table class="table" style="width: 100%;">
+                <thead>
+                    <tr>
+                        {% for title in titles_min %}
+                        <th>{{ title }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in datas_min %}
+                    <tr>
+                        {% for d in data %}
+                        <td>{{ d }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="field">
+            <a class="button is-link" href="/player/name={{name}}/getinfo=True">AI分析</a>
+        </div>
+        {% if info %}
+        <div class="box content">
+            {{info|safe}}
+        </div>
+        {% endif %}
+    </div>
+    {% endblock %}
+</section>

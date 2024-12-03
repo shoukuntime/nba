@@ -1,0 +1,122 @@
+<section class="hero is-info is-fullheight">
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="box content" style="margin: auto 15%;">
+        <div class="title">球員資訊分析</div>
+        <div class="box columns">
+            <div class="column">
+                <div class="field">
+                    <label class="label">賽季</label>
+                    <div class="select">
+                        <select id="season" name="season">
+                            <option value="" disabled {% if not season %}selected{% endif %}>請選取賽季期間</option>
+                            <option value="2014" {% if season=='2014' %}selected{% endif %}>2014-2015</option>
+                            <option value="2015" {% if season=='2015' %}selected{% endif %}>2015-2016</option>
+                            <option value="2016" {% if season=='2016' %}selected{% endif %}>2016-2017</option>
+                            <option value="2017" {% if season=='2017' %}selected{% endif %}>2017-2018</option>
+                            <option value="2018" {% if season=='2018' %}selected{% endif %}>2018-2019</option>
+                            <option value="2019" {% if season=='2019' %}selected{% endif %}>2019-2020</option>
+                            <option value="2020" {% if season=='2020' %}selected{% endif %}>2020-2021</option>
+                            <option value="2021" {% if season=='2021' %}selected{% endif %}>2021-2022</option>
+                            <option value="2022" {% if season=='2022' %}selected{% endif %}>2022-2023</option>
+                            <option value="2023" {% if season=='2023' %}selected{% endif %}>2023-2024</option>
+                            <option value="2024" {% if season=='2024' %}selected{% endif %}>2024-2025</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">隊伍</label>
+                    <div class="select">
+                        <select id="team" name="team">
+                            <option value="" disabled {% if not team %}selected{% endif %}>請選取隊伍名稱</option>
+                            <option value="塞爾蒂克" {% if team=='塞爾蒂克' %}selected{% endif %}>塞爾蒂克</option>
+                            <option value="籃網" {% if team=='籃網' %}selected{% endif %}>籃網</option>
+                            <option value="尼克" {% if team=='尼克' %}selected{% endif %}>尼克</option>
+                            <option value="76人" {% if team=='76人' %}selected{% endif %}>76人</option>
+                            <option value="暴龍" {% if team=='暴龍' %}selected{% endif %}>暴龍</option>
+                            <option value="公牛" {% if team=='公牛' %}selected{% endif %}>公牛</option>
+                            <option value="騎士" {% if team=='騎士' %}selected{% endif %}>騎士</option>
+                            <option value="活塞" {% if team=='活塞' %}selected{% endif %}>活塞</option>
+                            <option value="溜馬" {% if team=='溜馬' %}selected{% endif %}>溜馬</option>
+                            <option value="公鹿" {% if team=='公鹿' %}selected{% endif %}>公鹿</option>
+                            <option value="老鷹" {% if team=='老鷹' %}selected{% endif %}>老鷹</option>
+                            <option value="黃蜂" {% if team=='黃蜂' %}selected{% endif %}>黃蜂</option>
+                            <option value="熱火" {% if team=='熱火' %}selected{% endif %}>熱火</option>
+                            <option value="魔術" {% if team=='魔術' %}selected{% endif %}>魔術</option>
+                            <option value="巫師" {% if team=='巫師' %}selected{% endif %}>巫師</option>
+                            <option value="金塊" {% if team=='金塊' %}selected{% endif %}>金塊</option>
+                            <option value="灰狼" {% if team=='灰狼' %}selected{% endif %}>灰狼</option>
+                            <option value="雷霆" {% if team=='雷霆' %}selected{% endif %}>雷霆</option>
+                            <option value="拓荒者" {% if team=='拓荒者' %}selected{% endif %}>拓荒者</option>
+                            <option value="爵士" {% if team=='爵士' %}selected{% endif %}>爵士</option>
+                            <option value="勇士" {% if team=='勇士' %}selected{% endif %}>勇士</option>
+                            <option value="快艇" {% if team=='快艇' %}selected{% endif %}>快艇</option>
+                            <option value="湖人" {% if team=='湖人' %}selected{% endif %}>湖人</option>
+                            <option value="太陽" {% if team=='太陽' %}selected{% endif %}>太陽</option>
+                            <option value="國王" {% if team=='國王' %}selected{% endif %}>國王</option>
+                            <option value="獨行俠" {% if team=='獨行俠' %}selected{% endif %}>獨行俠</option>
+                            <option value="火箭" {% if team=='火箭' %}selected{% endif %}>火箭</option>
+                            <option value="灰熊" {% if team=='灰熊' %}selected{% endif %}>灰熊</option>
+                            <option value="鵜鶘" {% if team=='鵜鶘' %}selected{% endif %}>鵜鶘</option>
+                            <option value="馬刺" {% if team=='馬刺' %}selected{% endif %}>馬刺</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <button class="button is-primary"
+                        onclick="location.href='/player/season='+document.getElementById('season').value+'/team='+document.getElementById('team').value+'/getinfo=False'">查詢</button>
+                </div>
+            </div>
+        </div>
+        <div class="subtitle" style="text-align: center;">{{message}}</div>
+        <div style="overflow-x: auto;">
+            <table class="table" style="width: 100%;">
+                <thead>
+                    <tr>
+                        {% for title in titles_min %}
+                        <th>{{ title }}<br><a class="is-link is-outlined"
+                                href="/player/season={{season}}/team={{team}}/by={{title}}/ascending=False/getinfo=False">🔼</a><a
+                                class="is-link is-outlined"
+                                href="/player/season={{season}}/team={{team}}/by={{title}}/ascending=True/getinfo=False">🔽</a>
+                        </th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in datas_min %}
+                    <tr>
+                        {% for d in data %}
+                        {% if loop.index == 1 %}
+                        <td><a href="/player/name={{ d }}/getinfo=False">{{ d }}</a></td>
+                        {% else %}
+                        <td>{{ d }}</td>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if season %}
+        {% if by %}
+        <div class="field">
+            <a class="button is-link"
+                href="/player/season={{season}}/team={{team}}/by={{by}}/ascending={{ascending}}/getinfo=True">AI分析</a>
+        </div>
+        {% else %}
+        <div class="field">
+            <a class="button is-link" href="/player/season={{season}}/team={{team}}/getinfo=True">AI分析</a>
+        </div>
+        {% endif %}
+        {% endif %}
+        {% if info %}
+        <div class="box content">
+            {{info|safe}}
+        </div>
+        {% endif %}
+    </div>
+
+    {% endblock %}
+
+</section>

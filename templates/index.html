@@ -1,0 +1,30 @@
+<section class="hero is-info is-fullheight">
+    {% extends "base.html" %}
+    {% block content %}
+    <div class="box content" style="margin: auto 20%;">
+        <div class="title">新聞快報</div>
+        <div class="columns">
+            <div class="column"><input class='input is-primary' type="text" id="tag" name="tag" placeholder="輸入關鍵字">
+            </div>
+            <div class="column is-3"><input class='input is-primary' type="number" id="number" name="number" min="1"
+                    max="10" step="1" placeholder="輸入新聞數(1-20)"></div>
+            <div class="column"><button class="button is-primary"
+                    onclick="location.href='/tag='+document.getElementById('tag').value+'/number='+document.getElementById('number').value">查詢</button>
+            </div>
+        </div>
+
+        <div style="margin: 0 auto;">
+            {% for datas in find_news(tag,number) %}
+            <div class="box blue">
+                <h1><a href="{{datas[-1]}}" style="font-size:30px" class="title">{{datas[0]}}</a></h1>
+                <h1>{{datas[1]}}</h1>
+                <h3>{{datas[2]}} {{datas[3]}}</h3>
+                {% for data in datas[4] %}
+                {{data|safe}}
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock %}
+</section>

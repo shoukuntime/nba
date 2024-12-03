@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一鍵分析NBA賽事</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+    <style>
+        :root[data-theme='light'] {
+            --title: black;
+            --blue: hsl(198deg, 100%, 90%);
+            --red: hsl(348deg, 100%, 90%);
+
+        }
+
+        :root[data-theme='dark'] {
+            --title: white;
+            --blue: hsl(198deg, 100%, 10%);
+            --red: hsl(348deg, 100%, 10%);
+        }
+
+        .title {
+            color: var(--title);
+        }
+
+        .subtitle {
+            color: var(--title);
+        }
+
+        .hero.is-info {
+            background-color: var(--blue);
+        }
+
+        .blue {
+            background-color: var(--blue);
+        }
+
+        .red {
+            background-color: var(--red);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="columns">
+        <a class="column button" href="/">📰新聞快報</a>
+        <a class="column button" href="/games/getmore=False">📆近期賽事預測</a>
+        <a class="column button" href="/team">👥隊伍資訊分析</a>
+        <a class="column button" href="/player">🏀球員資訊分析</a>
+        <a class="column button" href="/description">🤖說明</a>
+        <a class="column button" id="toggle-dark-mode">🌓切換色彩模式</a>
+        <script>
+            // Set initial theme based on user's system preference or saved preference
+            const savedTheme = localStorage.getItem('theme');
+            const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const initialTheme = savedTheme || (userPrefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', initialTheme);
+
+            document.getElementById('toggle-dark-mode').addEventListener('click', function () {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        </script>
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+
+</html>
